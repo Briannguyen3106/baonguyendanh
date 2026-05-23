@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nguyen Danh Bao – Personal Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --serif: 'EB Garamond', Georgia, serif;
+      --sans: 'IBM Plex Sans', sans-serif;
+      --mono: 'IBM Plex Mono', monospace;
+      --ink: #1a1a18;
+      --muted: #5a5a56;
+      --faint: #9a9a94;
+      --line: rgba(0,0,0,0.12);
+      --surface: #f4f3ef;
+      --card: #ffffff;
+      --accent: #185FA5;
+      --accent-light: #E6F1FB;
+      --bg: #fafaf8;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8e8e4;
+        --muted: #a8a8a2;
+        --faint: #686862;
+        --line: rgba(255,255,255,0.12);
+        --surface: #252522;
+        --card: #1c1c1a;
+        --accent: #5BA4E0;
+        --accent-light: #0c2a45;
+        --bg: #161614;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+    .site { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 0.5px solid var(--line);
+      padding-bottom: 1rem; margin-bottom: 3rem;
+      flex-wrap: wrap; gap: 0.75rem;
+      position: sticky; top: 0; background: var(--bg);
+      padding-top: 1.5rem; z-index: 10;
+    }
+    .nav-logo { font-family: var(--serif); font-size: 20px; color: var(--ink); font-weight: 400; letter-spacing: -0.3px; }
+    .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .nav-links a {
+      font-size: 13px; font-family: var(--mono); color: var(--muted);
+      text-decoration: none; letter-spacing: 0.02em; cursor: pointer; transition: color 0.15s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    /* SECTIONS */
+    .section { display: none; animation: fadeIn 0.2s ease; }
+    .section.visible { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* HERO */
+    .hero { display: grid; grid-template-columns: 1fr 160px; gap: 2rem; align-items: start; margin-bottom: 3rem; }
+    .hero-name { font-family: var(--serif); font-size: 42px; font-weight: 400; line-height: 1.1; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+    .hero-title { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .hero-bio { font-size: 16px; line-height: 1.75; color: var(--muted); max-width: 520px; }
+    .hero-links { display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .hero-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em;
+      color: var(--muted); text-decoration: none;
+      border: 0.5px solid var(--line); border-radius: 4px; padding: 5px 10px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .hero-link:hover { border-color: var(--accent); color: var(--accent); }
+    .avatar {
+      width: 140px; height: 160px; border-radius: 4px;
+      background: var(--surface); border: 0.5px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px; color: var(--faint);
+      font-size: 13px; font-family: var(--mono);
+      overflow: hidden;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar i { font-size: 36px; color: var(--faint); }
+
+    /* SECTION HEADER */
+    .sec-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; border-bottom: 0.5px solid var(--line); padding-bottom: 0.75rem; }
+    .sec-title { font-family: var(--serif); font-size: 26px; font-weight: 400; color: var(--ink); letter-spacing: -0.3px; }
+    .sec-num { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: 0.05em; }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; }
+    .tl-item { display: grid; grid-template-columns: 120px 1fr; gap: 0 1.5rem; padding: 1.5rem 0; border-bottom: 0.5px solid var(--line); }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-period { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: 0.04em; padding-top: 3px; line-height: 1.6; }
+    .tl-role { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+    .tl-org { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.02em; margin-bottom: 6px; }
+    .tl-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .tl-badge { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 3px; background: var(--accent-light); color: var(--accent); margin-top: 8px; }
+
+    /* RESEARCH */
+    .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border: 0.5px solid var(--line); border-radius: 8px; overflow: hidden; }
+    .res-card { padding: 1.5rem 1.25rem; background: var(--card); border-right: 0.5px solid var(--line); border-bottom: 0.5px solid var(--line); transition: background 0.15s; }
+    .res-card:hover { background: var(--surface); }
+    .res-icon { font-size: 22px; color: var(--accent); margin-bottom: 0.75rem; }
+    .res-name { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; }
+    .res-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .res-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.75rem; }
+    .res-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.03em; padding: 2px 6px; background: var(--surface); border: 0.5px solid var(--line); border-radius: 3px; color: var(--faint); }
+
+    /* PROJECTS */
+    .proj-list { display: flex; flex-direction: column; }
+    .proj-item { display: grid; grid-template-columns: 48px 1fr auto; gap: 0 1.25rem; align-items: start; padding: 1.5rem 0; border-bottom: 0.5px solid var(--line); }
+    .proj-item:last-child { border-bottom: none; }
+    .proj-num { font-family: var(--mono); font-size: 13px; color: var(--faint); padding-top: 3px; }
+    .proj-title { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 5px; }
+    .proj-desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+    .proj-stack { display: flex; flex-wrap: wrap; gap: 5px; }
+    .proj-tech { font-family: var(--mono); font-size: 10px; padding: 2px 7px; background: var(--accent-light); color: var(--accent); border-radius: 3px; letter-spacing: 0.03em; }
+    .proj-link { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; border: 0.5px solid var(--line); border-radius: 4px; padding: 4px 8px; white-space: nowrap; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+    .proj-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* CV */
+    .cv-preview { border: 0.5px solid var(--line); border-radius: 8px; overflow: hidden; }
+    .cv-preview-head { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; background: var(--surface); border-bottom: 0.5px solid var(--line); }
+    .cv-preview-label { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+    .cv-actions { display: flex; gap: 0.5rem; }
+    .cv-btn { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 11px; color: var(--muted); border: 0.5px solid var(--line); border-radius: 4px; padding: 5px 10px; background: var(--card); cursor: pointer; transition: border-color 0.15s, color 0.15s; text-decoration: none; }
+    .cv-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .cv-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .cv-btn.primary:hover { opacity: 0.85; }
+    .cv-inline { padding: 2rem; }
+    .cv-block { margin-bottom: 1.75rem; }
+    .cv-block-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border-bottom: 0.5px solid var(--line); padding-bottom: 4px; margin-bottom: 0.75rem; }
+    .cv-row { display: grid; grid-template-columns: 110px 1fr; gap: 0 1rem; padding: 0.3rem 0; }
+    .cv-year { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+    .cv-entry { font-size: 13px; color: var(--muted); }
+    .cv-entry strong { color: var(--ink); font-weight: 500; }
+
+    /* FOOTER */
+    footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 0.5px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: 0.03em; }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .hero { grid-template-columns: 1fr; }
+      .avatar { display: none; }
+      .tl-item { grid-template-columns: 1fr; gap: 4px; }
+      .proj-item { grid-template-columns: 1fr; }
+      .proj-num { display: none; }
+      .hero-name { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+<div class="site">
+  <nav>
+    <span class="nav-logo">Nguyen Danh Bao</span>
+    <div class="nav-links">
+      <a onclick="show('about')" class="active" id="tab-about">about</a>
+      <a onclick="show('education')" id="tab-education">education</a>
+      <a onclick="show('work')" id="tab-work">experience</a>
+      <a onclick="show('research')" id="tab-research">research</a>
+      <a onclick="show('projects')" id="tab-projects">projects</a>
+      <a onclick="show('cv')" id="tab-cv">cv</a>
+    </div>
+  </nav>
+
+  <!-- ABOUT -->
+  <div class="section visible" id="about">
+    <div class="hero">
+      <div>
+        <p class="hero-title">Undergraduate Student · Reinforcement Learning</p>
+        <!-- ✏️ Thay tên của bạn vào đây -->
+        <h1 class="hero-name">Nguyen Danh Bao</h1>
+        <!-- ✏️ Viết bio ngắn của bạn -->
+        <p class="hero-bio">
+          I am an undergraduate student majoring in Data Science and AI at Hanoi University of Science and Technology (HUST). 
+          Currently, I am building a solid theoretical foundation in Machine Learning, with a strong interest in <em>Reinforcement Learning</em> (RL). 
+          As an aspiring researcher, I am focusing on expanding my core knowledge and exploring various dimensions of RL to define my future research direction.
+        </p>
+        <p class="hero-bio" style="margin-top:0.75rem;">
+          I am currently a research student at the DSAI Lab, 
+          School of Information and Communications Technology (SoICT), HUST.
+        </p>
+        <div class="hero-links">
+          <!-- ✏️ Thay email và link của bạn -->
+          <a href="mailto: briannguyen3106@gmail.com" class="hero-link"><i class="ti ti-mail"></i>briannguyen3106@gmail.com</a>
+          <a href="https://github.com/Briannguyen3106" target="_blank" class="hero-link"><i class="ti ti-brand-github"></i>GitHub</a>
+          <a href="https://scholar.google.com" target="_blank" class="hero-link"><i class="ti ti-file-text"></i>Google Scholar</a>
+          <a href="https://www.linkedin.com/in/stoias3126/" target="_blank" class="hero-link"><i class="ti ti-brand-linkedin"></i>LinkedIn</a>
+        </div>
+      </div>
+      <div class="avatar">
+          <img src="anh.JPG" alt="Ảnh đại diện" />
+          <i class="ti ti-user-circle" style="display: none;"></i>
+          <span style="display: none;">photo.jpg</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section" id="education">
+    <div class="sec-head">
+      <h2 class="sec-title">Education</h2>
+      <span class="sec-num">education</span>
+    </div>
+    <div class="timeline">
+      <!-- Education Timeline -->
+      <div class="tl-item">
+        <div class="tl-period">2024 – now</div>
+        <div class="tl-body">
+          <div class="tl-role">Undergraduate Student in Data Science and Artificial Intelligence</div>
+          <div class="tl-org">Hanoi University of Science and Technology (HUST)</div>
+          <div class="tl-desc">
+            Second-year undergraduate student majoring in Data Science and Artificial Intelligence. 
+            Interested in Machine Learning, Reinforcement Learning, and AI for real-world applications.
+          </div>
+          <span class="tl-badge">Undergraduate Researcher</span>
+        </div>
+      </div>
+
+      <div class="tl-item">        
+      </div>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <div class="section" id="work">
+    <div class="sec-head">
+      <h2 class="sec-title">Experience</h2>
+      <span class="sec-num">experience</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-period">2025 – now</div>
+        <div class="tl-body">
+          <div class="tl-role">Research Assistant (Training Phase)</div>
+          <div class="tl-org">DSAI Lab – Hanoi University of Science and Technology (HUST)</div>
+          <div class="tl-desc">
+            Participating in machine learning and reinforcement learning research activities, 
+            with interests in adaptive learning systems, concept drift handling, and Monte Carlo methods. 
+            Working on experiment reproduction, model evaluation, and research-oriented implementations using Python and PyTorch.
+          </div>
+          <span class="tl-badge">Machine Learning Research</span>
+        </div>
+      </div>
+</div>
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="section" id="research">
+    <div class="sec-head">
+      <h2 class="sec-title">Research</h2>
+      <span class="sec-num">research</span>
+    </div>
+    <div class="research-grid">
+  <div class="res-card">
+    <div class="res-icon"><i class="ti ti-brain"></i></div>
+    <div class="res-name">Machine Learning</div>
+    <div class="res-desc">
+      Interested in machine learning systems and data-driven approaches for real-world problems, 
+      including model evaluation, adaptive learning, and predictive modeling.
+    </div>
+    <div class="res-tags">
+      <span class="res-tag">Scikit-learn</span>
+      <span class="res-tag">PyTorch</span>
+      <span class="res-tag">Model Evaluation</span>
+    </div>
+  </div>
+
+  <div class="res-card">
+    <div class="res-icon"><i class="ti ti-atom-2"></i></div>
+    <div class="res-name">Reinforcement Learning</div>
+    <div class="res-desc">
+      Exploring reinforcement learning algorithms, including Monte Carlo methods, Temporal Difference learning, 
+      and adaptive decision-making under dynamic environments.
+    </div>
+    <div class="res-tags">
+      <span class="res-tag">Monte Carlo</span>
+      <span class="res-tag">TD Learning</span>
+      <span class="res-tag">Q-Learning</span>
+    </div>
+  </div>
+
+  <div class="res-card">
+    <div class="res-icon"><i class="ti ti-chart-dots-3"></i></div>
+    <div class="res-name">Concept Drift & Adaptive Systems</div>
+    <div class="res-desc">
+      Interested in adaptive machine learning systems capable of handling changing data distributions 
+      and maintaining performance in streaming environments.
+    </div>
+    <div class="res-tags">
+      <span class="res-tag">Concept Drift</span>
+      <span class="res-tag">Online Learning</span>
+      <span class="res-tag">Adaptive Retraining</span>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:2.5rem;">
+  <div class="sec-head" style="margin-bottom:1.5rem;">
+    <h3 style="font-family:var(--serif);font-size:20px;font-weight:400;color:var(--ink);">
+      Publications
+    </h3>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-period">Present</div>
+      <div class="tl-body">
+        <div class="tl-role" style="font-size:14px;">
+          Undergraduate Research Projects
+        </div>
+        <div class="tl-org">
+          DSAI Lab – HUST
+        </div>
+        <div class="tl-desc">
+          Currently participating in research-oriented projects related to reinforcement learning, 
+          adaptive machine learning systems, and experiment reproduction. 
+          No formal publications yet.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section" id="projects">
+    <div class="sec-head">
+      <h2 class="sec-title">Projects</h2>
+      <span class="sec-num">projects</span>
+    </div>
+    <div class="proj-list">
+      <!-- Project 01 -->
+      <div class="proj-item">
+        <div class="proj-num">01</div>
+        <div>
+          <div class="proj-title">RaceTrackMC</div>
+          <div class="proj-desc">Implementation of Monte Carlo Control algorithms to solve the Racetrack problem from Sutton & Barto's Reinforcement Learning book.</div>
+          <div class="proj-stack">
+            <span class="proj-tech">Python</span>
+            <span class="proj-tech">Reinforcement Learning</span>
+            <span class="proj-tech">Monte Carlo</span>
+          </div>
+        </div>
+        <a href="https://github.com/Briannguyen3106/RaceTrackMC" target="_blank" class="proj-link">
+          <i class="ti ti-brand-github"></i> Code
+        </a>
+      </div>
+
+      <!-- Project 02 -->
+      <div class="proj-item">
+        <div class="proj-num">02</div>
+        <div>
+          <div class="proj-title">RL Concept Drift</div>
+          <div class="proj-desc">Research and implementation of methods to handle Concept Drift in dynamic Reinforcement Learning environments.</div>
+          <div class="proj-stack">
+            <span class="proj-tech">Python</span>
+            <span class="proj-tech">Reinforcement Learning</span>
+            <span class="proj-tech">PyTorch</span>
+          </div>
+        </div>
+        <a href="https://github.com/Briannguyen3106/RL-concept-drift" target="_blank" class="proj-link">
+          <i class="ti ti-brand-github"></i> Code
+        </a>
+      </div>
+
+      <!-- Project 03 -->
+      <div class="proj-item">
+        <div class="proj-num">03</div>
+        <div>
+          <div class="proj-title">Flood Forecast</div>
+          <div class="proj-desc">Machine Learning system for flood forecasting with a complete pipeline from data preprocessing to model deployment.</div>
+          <div class="proj-stack">
+            <span class="proj-tech">Python</span>
+            <span class="proj-tech">Machine Learning</span>
+            <span class="proj-tech">Scikit-learn</span>
+          </div>
+        </div>
+        <a href="https://github.com/Briannguyen3106/flood-forecast" target="_blank" class="proj-link">
+          <i class="ti ti-brand-github"></i> Code
+        </a>
+      </div>
+
+      <!-- Project 04 -->
+      <div class="proj-item">
+        <div class="proj-num">04</div>
+        <div>
+          <div class="proj-title">Telco Churn ML From Scratch</div>
+          <div class="proj-desc">Building Machine Learning algorithms from scratch (using only NumPy) to predict customer churn in the telecommunications industry.</div>
+          <div class="proj-stack">
+            <span class="proj-tech">Python</span>
+            <span class="proj-tech">NumPy</span>
+            <span class="proj-tech">Pandas</span>
+            <span class="proj-tech">From Scratch</span>
+          </div>
+        </div>
+        <a href="https://github.com/Briannguyen3106/Telco-Churn-ML-From-Scratch" target="_blank" class="proj-link">
+          <i class="ti ti-brand-github"></i> Code
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CV -->
+  <div class="section" id="cv">
+    <div class="sec-head">
+      <h2 class="sec-title">Curriculum Vitae</h2>
+      <span class="sec-num">cv</span>
+    </div>
+    <div class="cv-preview">
+      <div class="cv-preview-head">
+        <span class="cv-preview-label">Nguyen_Danh_Bao_CV.pdf</span>
+        <div class="cv-actions">
+          <!-- Thay link PDF thật của bạn vào đây -->
+          <a href="Nguyen_Danh_Bao__CV.pdf" target="_blank" class="cv-btn"><i class="ti ti-eye"></i> Xem</a>
+          <a href="Nguyen_Danh_Bao__CV.pdf" download class="cv-btn primary"><i class="ti ti-download"></i> Tải PDF</a>
+        </div>
+      </div>
+      
+      <div class="cv-inline">
+        
+        <!-- Education -->
+        <div class="cv-block">
+          <div class="cv-block-title">Education</div>
+          <div class="cv-row">
+            <span class="cv-year">09/2024 – Present</span>
+            <span class="cv-entry">
+              <strong>Data Science & Artificial Intelligence</strong> · Hanoi University of Science and Technology (HUST)<br>
+              <small>CPA: 4.0/4.0</small>
+            </span>
+          </div>
+          <div class="cv-row">
+            <span class="cv-year">09/2021 – 05/2024</span>
+            <span class="cv-entry">
+              <strong>High School</strong> · Bac Giang High School for Gifted Students<br>
+              <small>GPA: 9.3/9.5/9.7</small>
+            </span>
+          </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="cv-block">
+          <div class="cv-block-title">Experience</div>
+          <div class="cv-row">
+            <span class="cv-year">11/2025 – Present</span>
+            <span class="cv-entry">
+              <strong>Research Assistant</strong> · Machine Learning Lab, Hanoi<br>
+              <small>Implementing ML models from scratch • Reinforcement Learning research • EDA & Feature Engineering</small>
+            </span>
+          </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="cv-block">
+          <div class="cv-block-title">Projects</div>
+          <div class="cv-row">
+            <span class="cv-year">2025</span>
+            <span class="cv-entry">
+              <strong>Telco Customer Churn Prediction (From Scratch)</strong><br>
+              Built Logistic Regression, KNN, Decision Tree, Random Forest, SVM, Naive Bayes using only NumPy. Achieved best F1-score 0.63 with Random Forest.
+            </span>
+          </div>
+          <div class="cv-row">
+            <span class="cv-year">2025</span>
+            <span class="cv-entry">
+              <strong>RaceTrackMC</strong><br>
+              Monte Carlo Control implementation for the Racetrack environment (Sutton & Barto).
+            </span>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="cv-block">
+          <div class="cv-block-title">Skills</div>
+          <div class="cv-row">
+            <span class="cv-year">Languages</span>
+            <span class="cv-entry">Python, C/C++, Java, JavaScript</span>
+          </div>
+          <div class="cv-row">
+            <span class="cv-year">ML & Frameworks</span>
+            <span class="cv-entry">NumPy, Pandas, Scikit-learn, PyTorch, Reinforcement Learning</span>
+          </div>
+          <div class="cv-row">
+            <span class="cv-year">Tools</span>
+            <span class="cv-entry">Git, GitHub, SQL (MySQL), Docker, Linux</span>
+          </div>
+        </div>
+
+        <!-- Awards -->
+        <div class="cv-block">
+          <div class="cv-block-title">Awards & Certifications</div>
+          <div class="cv-row">
+            <span class="cv-year">2024</span>
+            <span class="cv-entry">First Prize – National Physics Competition (VPhO)</span>
+          </div>
+          <div class="cv-row">
+            <span class="cv-year">2023</span>
+            <span class="cv-entry">Second Prize – National Physics Competition (VPhO)</span>
+          </div>
+          <div class="cv-row">
+            <span class="cv-year">2024</span>
+            <span class="cv-entry">IELTS 6.5 • HUST Academic Excellence Scholarship • Top 2 Student Creative Ideas Challenge</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© Nguyen Danh Bao · Reinforcement Learning Researcher</p>
+  </footer>
+</div>
+
+<script>
+  function show(tab) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById(tab).classList.add('visible');
+    document.getElementById('tab-' + tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
