@@ -24,6 +24,10 @@
       --accent: #185FA5;
       --accent-light: #E6F1FB;
       --bg: #fafaf8;
+    /* === AVATAR: chỉnh thông số ở đây === */
+      --avatar-zoom: 3;        /* độ phóng to ảnh (1 = không zoom, 1.5 = zoom 50%) */
+      --avatar-shift-x: -9%;      /* dịch trái/phải (-10% = trái, 10% = phải) */
+      --avatar-shift-y: -10%;     /* dịch lên/xuống (-10% = lên, 10% = xuống) */
     }
 
     @media (prefers-color-scheme: dark) {
@@ -89,7 +93,11 @@
       font-size: 13px; font-family: var(--mono);
       overflow: hidden;
     }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar img {
+      width: 100%; height: 100%; object-fit: cover;
+      transform: scale(var(--avatar-zoom)) translate(var(--avatar-shift-x), var(--avatar-shift-y));
+      transform-origin: center center;
+    }
     .avatar i { font-size: 36px; color: var(--faint); }
 
     /* SECTION HEADER */
@@ -106,6 +114,14 @@
     .tl-org { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.02em; margin-bottom: 6px; }
     .tl-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
     .tl-badge { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 3px; background: var(--accent-light); color: var(--accent); margin-top: 8px; }
+    .tl-advisor { margin-bottom: 6px; }
+    .tl-advisor > summary { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.02em; cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 4px; }
+    .tl-advisor > summary::-webkit-details-marker { display: none; }
+    .tl-advisor > summary::before { content: "›"; display: inline-block; transition: transform 0.15s; color: var(--faint); }
+    .tl-advisor[open] > summary::before { transform: rotate(90deg); }
+    .tl-advisor > summary:hover { color: var(--ink); }
+    .tl-advisor-link { display: inline-block; margin-top: 4px; font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; border-bottom: 0.5px dashed var(--line); padding-bottom: 1px; }
+    .tl-advisor-link:hover { color: var(--accent); border-color: var(--accent); }
 
     /* RESEARCH */
     .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border: 0.5px solid var(--line); border-radius: 8px; overflow: hidden; }
@@ -200,7 +216,7 @@
         </div>
       </div>
       <div class="avatar">
-          <img src="anh.JPG" alt="Ảnh đại diện" />
+          <img src="bao.jpg" alt="Ảnh đại diện" />
           <i class="ti ti-user-circle" style="display: none;"></i>
           <span style="display: none;">photo.jpg</span>
       </div>
@@ -241,19 +257,37 @@
     </div>
     <div class="timeline">
       <div class="tl-item">
-        <div class="tl-period">2025 – now</div>
+        <div class="tl-period">2025 – Jan 2026</div>
         <div class="tl-body">
           <div class="tl-role">Research Assistant (Training Phase)</div>
           <div class="tl-org">DSAI Lab – Hanoi University of Science and Technology (HUST)</div>
           <div class="tl-desc">
-            Participating in machine learning and reinforcement learning research activities, 
-            with interests in adaptive learning systems, concept drift handling, and Monte Carlo methods. 
-            Working on experiment reproduction, model evaluation, and research-oriented implementations using Python and PyTorch.
+            Participated in machine learning and reinforcement learning research activities,
+            with interests in adaptive learning systems, concept drift handling, and Monte Carlo methods.
+            Worked on experiment reproduction, model evaluation, and research-oriented implementations using Python and PyTorch.
           </div>
           <span class="tl-badge">Machine Learning Research</span>
         </div>
       </div>
-</div>
+
+      <div class="tl-item">
+        <div class="tl-period">Jan 2026 – now</div>
+        <div class="tl-body">
+          <div class="tl-role">Researcher – Reinforcement Learning</div>
+          <details class="tl-advisor">
+            <summary class="tl-org">Supervised by Dr. Đàm Quang Tuấn</summary>
+            <a class="tl-advisor-link" href="https://scholar.google.com/citations?user=ZwCL6tAAAAAJ&hl=en" target="_blank" rel="noopener">
+              Google Scholar profile →
+            </a>
+          </details>
+          <div class="tl-desc">
+            Researching Reinforcement Learning with a focus on Graph-based RL — combining RL algorithms with graph representations
+            to capture relational structure in decision-making problems.
+          </div>
+          <span class="tl-badge">Reinforcement Learning · Graph RL</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- RESEARCH -->
@@ -293,15 +327,15 @@
 
   <div class="res-card">
     <div class="res-icon"><i class="ti ti-chart-dots-3"></i></div>
-    <div class="res-name">Concept Drift & Adaptive Systems</div>
+    <div class="res-name">Graph Reinforcement Learning</div>
     <div class="res-desc">
-      Interested in adaptive machine learning systems capable of handling changing data distributions 
-      and maintaining performance in streaming environments.
+      Exploring the intersection of reinforcement learning and graph representations —
+      using graph structure to inform RL decisions for problems with relational dependencies.
     </div>
     <div class="res-tags">
-      <span class="res-tag">Concept Drift</span>
-      <span class="res-tag">Online Learning</span>
-      <span class="res-tag">Adaptive Retraining</span>
+      <span class="res-tag">Markov Decision Process</span>
+      <span class="res-tag">Policy Optimization</span>
+      <span class="res-tag">Graph-based RL</span>
     </div>
   </div>
 </div>
@@ -453,10 +487,17 @@
         <div class="cv-block">
           <div class="cv-block-title">Experience</div>
           <div class="cv-row">
-            <span class="cv-year">11/2025 – Present</span>
+            <span class="cv-year">11/2025 – 01/2026</span>
             <span class="cv-entry">
-              <strong>Research Assistant</strong> · Machine Learning Lab, Hanoi<br>
+              <strong>Research Assistant (Training Phase)</strong> · DSAI Lab, HUST<br>
               <small>Implementing ML models from scratch • Reinforcement Learning research • EDA & Feature Engineering</small>
+            </span>
+          </div>
+          <div class="cv-row">
+            <span class="cv-year">01/2026 – Present</span>
+            <span class="cv-entry">
+              <strong>Researcher – Reinforcement Learning</strong> · Supervised by Dr. Đàm Quang Tuấn<br>
+              <small>Theory-oriented RL research · Graph-based RL algorithms</small>
             </span>
           </div>
         </div>
